@@ -1,18 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      stuff: ["dog", "cat", "log", "potato"],
+      empty: ""
+    };
+  }
+
+  containerFind(val) {
+    this.setState({
+      empty: val
+    });
+    // alert(val);
+  }
+
   render() {
+    console.log(this.state.empty);
+    let allStuff = this.state.stuff
+      .filter(e => e.includes(this.state.empty))
+      .map((e, i) => {
+        return (
+          <div key={i}>
+            <h2>{e}</h2>
+          </div>
+        );
+      });
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <input onChange={event => this.containerFind(event.target.value)} />
+        {allStuff}
       </div>
     );
   }
